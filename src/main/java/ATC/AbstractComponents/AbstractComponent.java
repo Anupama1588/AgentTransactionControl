@@ -21,12 +21,11 @@ public class AbstractComponent {
 		PageFactory.initElements(driver,this);
 
 	}
-	
-	
+		
 
 	public void waitForElementToAppear(By findBy) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-		wait.until(ExpectedConditions.visibilityOfElementLocated(findBy));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(findBy)); 
 
 	}
 	

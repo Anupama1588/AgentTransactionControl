@@ -21,7 +21,7 @@ public class ATC_AgentUserTest extends BaseTest{
 		//--------------------- Page Navigation verification after logged-in ---------------------------------------
 		
 		lPage.loginToApplication("bosco_agent@yopmail.com","Test@123");
-		String expUrl="https://qa-atc.valueaddsofttech.com/transaction-overview";
+		String expUrl="https://qa-atc.procasaonboard.com/transaction-overview";
 		String result=lPage.getLoginVerification();	
 		
 		if(result.equalsIgnoreCase(expUrl))
@@ -31,7 +31,7 @@ public class ATC_AgentUserTest extends BaseTest{
 	}
 	
 	@Test
-	public void newTransaction()
+	public void newTransaction() throws InterruptedException
 	{
 		//-------------------------- Add New Transaction------------------------------------------------------------
 		 NewListingPage newTransPage=new NewListingPage(driver);
@@ -45,7 +45,7 @@ public class ATC_AgentUserTest extends BaseTest{
 	}
 	
 	@Test(dependsOnMethods={"agent_login"})
-	public void agent_action()
+	public void agent_action() 
 	{
 		//---------------------------- Agent User Menu List --------------------------------------------------------
 		

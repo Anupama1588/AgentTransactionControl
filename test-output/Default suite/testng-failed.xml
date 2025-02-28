@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="ATC.tests.TransactionDetailsTest">
+      <class name="ATC.tests.ATC_SellerUserTest">
         <methods>
           <include name="launchApplication"/>
-          <include name="agent_login"/>
-          <include name="addMarketDate"/>
+          <include name="seller_login"/>
+          <include name="fillSPQForm"/>
         </methods>
-      </class> <!-- ATC.tests.TransactionDetailsTest -->
+      </class> <!-- ATC.tests.ATC_SellerUserTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

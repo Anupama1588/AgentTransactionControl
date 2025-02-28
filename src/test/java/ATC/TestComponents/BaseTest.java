@@ -35,7 +35,7 @@ public class BaseTest {
 	public WebDriver initializationDriver() throws IOException {
 
 		//access global properties
-		// properties class
+		// properties class 
 
 		prop=new Properties();
 
@@ -60,7 +60,7 @@ public class BaseTest {
 			driver=new FirefoxDriver();
 
 		}
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		driver.manage().window().maximize();
 		return driver;
 	}

@@ -17,7 +17,7 @@ public class AllTransactionsTest extends BaseTest{
 		//--------------------- Page Navigation verification after logged-in ---------------------------------------
 		
 		lPage.loginToApplication("bosco_agent@yopmail.com","Test@123");
-		String expUrl="https://qa-atc.valueaddsofttech.com/transaction-overview";
+		String expUrl="https://qa-atc.procasaonboard.com/transaction-overview";
 		String result=lPage.getLoginVerification();	
 		
 		System.out.println("//------------Execution begins ----------------");	

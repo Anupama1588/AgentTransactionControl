@@ -42,8 +42,8 @@ public class LoginPage extends AbstractComponent {
 
 	//----------------- Action------------------------
 
-	public void goTo(){
-		driver.get("https://qa-atc.valueaddsofttech.com/login");
+	public void goTo(){ 
+		driver.get("https://qa-atc.procasaonboard.com/login");
 	}
 
 	public void loginToApplication(String email, String password){
