@@ -132,7 +132,7 @@ public class TDS_FormPage extends AbstractComponent{
 	}
 
 	@SuppressWarnings("deprecation")
-	public void setAnswerSPQ() throws InterruptedException {
+	public void setAnswerTDS() throws InterruptedException {
 
 		String questionNo = " ";
 		Thread.sleep(500);
@@ -175,7 +175,7 @@ public class TDS_FormPage extends AbstractComponent{
 						lastQue.click();
 						saveNextButt.click();							
 
-						System.out.println("Congratulations!!!, you have completed SPQ seller form");
+						System.out.println("Congratulations!!!, you have completed TDS seller form");
 						break;
 					}
 				
@@ -188,11 +188,11 @@ public class TDS_FormPage extends AbstractComponent{
 		}		
 		
 		// Reviewed and marked as done
-		reviewSPQ();		
+		reviewTDS();		
 		
 	}
 
-	public void reviewSPQ() {
+	public void reviewTDS() {
 		
 		js.executeScript("arguments[0].scrollIntoView(true);", doneButt);
 		
