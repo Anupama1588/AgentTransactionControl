@@ -7,7 +7,7 @@
         <methods>
           <include name="launchApplication"/>
           <include name="seller_login"/>
-          <include name="fillSPQForm"/>
+          <include name="TDS_Form"/>
         </methods>
       </class> <!-- ATC.tests.ATC_SellerUserTest -->
     </classes>

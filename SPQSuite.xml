@@ -3,13 +3,19 @@
 
 <suite name="Suite">
 	
+	<groups>
+		<run>
+			<include name="SPQ_Sanity"></include>
+		</run>		
+	</groups>
+	
 	<listeners>
 		<listener class-name="ATC.TestComponents.Listeners"></listener>
 	</listeners>	
 	
-	<test thread-count="5" name="Agent User Test">
+	<test thread-count="5" name="Seller User Test">
     	<classes>
-      		<class name="ATC.tests.ATC_AgentUserTest"/>     
+      		<class name="ATC.tests.ATC_SellerUserTest"/>     
     	</classes>
   	</test> <!-- Test -->
    

@@ -25,7 +25,7 @@ public class SPQ_FormPage extends AbstractComponent{
 	}
 
 	//---------------- Page Factory---------------------------
-	@FindBy(xpath="(//button[text()=' Get Started '])[3]") 
+	@FindBy(xpath="(//button[text()=' Get Started '])[1]") 
 	WebElement getStartedLatest;		
 
 	@FindBy(xpath="(//span[text()=' Start Here '])[1]")
@@ -75,22 +75,22 @@ public class SPQ_FormPage extends AbstractComponent{
 
 	@FindBy(xpath="//input[@value='No']")
 	WebElement radioButtNO;
-	
+
 	@FindBy(xpath="//input[@value='Yes']")
 	WebElement radioButtYes;
 
 	@FindBy(xpath="//textarea[@placeholder='Enter Explanation*']")
 	WebElement explanationText;
-	
+
 	@FindBy(xpath="//input[@type='checkbox'and @name='19B']")
 	WebElement lastQue;
 
 	@FindBy(xpath="//button[text()=' Done ']")
 	WebElement doneButt;
-	
+
 	@FindBy(xpath="//form[@method='dialog']/h3[text()='Review Form']")
 	WebElement confirmDlg;
-	
+
 	@FindBy(xpath="//form[@method='dialog']/button[text()=' Yes ']")
 	WebElement confirmYesButt;
 
@@ -118,7 +118,7 @@ public class SPQ_FormPage extends AbstractComponent{
 		waitForElementToBeClickable(getStartedSPQ);
 		getStartedSPQ.click();
 
-		subSecButt.click();
+		//subSecButt.click();
 		termCondSec.click();
 
 		js.executeScript("arguments[0].scrollIntoView(true);", termCondChkBx);
@@ -137,10 +137,14 @@ public class SPQ_FormPage extends AbstractComponent{
 		String questionNo = " ";
 		Thread.sleep(500);
 
-		//js.executeScript("arguments[0].scrollIntoView(true);", eighteenSec);
-		//eighteenSec.click();
+		int i=0;	
+		
+			
+		/*js.executeScript("arguments[0].scrollIntoView(true);", eighteenSec);
+		Thread.sleep(500);
+		eighteenSec.click();*/
 
-		for(int i=1; i<=100; i++) {
+		for(i=1; i<=300; i++) {
 
 			try {
 				waitForWebElementToAppear(saveNextButt);					
@@ -148,17 +152,16 @@ public class SPQ_FormPage extends AbstractComponent{
 
 					waitForElementToBeClickable(radioButtNO);
 
-					questionNo= radioButtNO.getAttribute("name").toString();
-					System.out.println("iteration : "+ i);
-					System.out.println("Question " + questionNo + " attempted");
-
+					
 					Thread.sleep(1000);
-
+                    int number=(i%5);//Math.ceilDiv( i , 5 ) ;
+                    
+                    System.out.println("Number : "+ number);
 					// Select option 'Yes'
-					if((i/10) == 0)
+					if(number == 0)
 					{
 						radioButtYes.click();
-						
+
 						waitForWebElementToAppear(explanationText);
 						explanationText.sendKeys("DUMMY TEXT .........");
 					}
@@ -166,10 +169,14 @@ public class SPQ_FormPage extends AbstractComponent{
 					else {
 						radioButtNO.click();	
 					}
-
+					
+					questionNo= radioButtNO.getAttribute("name").toString();
+					System.out.println("iteration : "+ i);  
+					System.out.println("Question " + questionNo + " attempted");
+					
 					saveNextButt.click();	
-
-					if(questionNo.equalsIgnoreCase("19B"))
+					
+					if(questionNo.equalsIgnoreCase("19A"))
 					{
 
 						lastQue.click();
@@ -178,30 +185,32 @@ public class SPQ_FormPage extends AbstractComponent{
 						System.out.println("Congratulations!!!, you have completed SPQ seller form");
 						break;
 					}
-				
+					
+
 				}									
 
 			}catch (Exception e) {
 
 				e.printStackTrace();
 			}						
-		}		
-		
-		// Reviewed and marked as done
-		reviewSPQ();		
-		
-	}
+		}	
 
-	public void reviewSPQ() {
-		
-		js.executeScript("arguments[0].scrollIntoView(true);", doneButt);
-		
-		doneButt.click();
-		
-		waitForWebElementToAppear(confirmDlg);
-		confirmYesButt.click();	
-		
-	}
+	// Reviewed and marked as done
+	//reviewSPQ();		
+
+
+}
+
+public void reviewSPQ() {
+
+	js.executeScript("arguments[0].scrollIntoView(true);", doneButt);
+
+	doneButt.click();
+
+	waitForWebElementToAppear(confirmDlg);
+	confirmYesButt.click();	
+
+}
 
 }
 

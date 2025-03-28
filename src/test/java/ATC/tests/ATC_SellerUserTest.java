@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import ATC.TestComponents.BaseTest;
 import ATC.pageObjects.SPQ_FormPage;
+import ATC.pageObjects.TDS_FormPage;
 
 public class ATC_SellerUserTest extends BaseTest{
 	
@@ -18,6 +19,8 @@ public class ATC_SellerUserTest extends BaseTest{
 		//--------------------- Page Navigation verification after logged-in ---------------------------------------
 		
 		lPage.loginToApplication("joseph_seller@yopmail.com","Test@123");
+		//lPage.loginToApplication("liva_seller@yopmail.com","Sanupama@15");
+		
 		String expUrl="https://qa-atc.procasaonboard.com/disclosure-progress";
 		/*String result=lPage.getLoginVerification();	
 		
@@ -26,9 +29,11 @@ public class ATC_SellerUserTest extends BaseTest{
 		
 		//Thread.sleep(1000);
 	}
-	
+
+	// SPQ Form
+	/*
 	@Test(dependsOnMethods={"seller_login"})
-	public void fillSPQForm() throws IOException, InterruptedException{
+	public void SPQ_Form() throws IOException, InterruptedException{
 		
 		SPQ_FormPage spqObj = new SPQ_FormPage(driver);
 		String expectedText="Looks like you’ve got things going!";
@@ -44,19 +49,22 @@ public class ATC_SellerUserTest extends BaseTest{
 			// TODO Auto-generated catch block
 			getScreenshot("fillSPQForm",driver);
 			e.printStackTrace();
-		}		
+		}				
+	}*/
+	
+	
+
+	// TDS Form
+	@Test(dependsOnMethods={"seller_login"})
+	public void TDS_Form() throws InterruptedException {
+		TDS_FormPage tdsObj=new TDS_FormPage(driver);
 		
+		tdsObj.startTDS();
 		
 	}
 	
-	//TDS Form
 	
-	
-	// SPQ Form
-	
-	
-	
-	
+		
 	
 	
 	

@@ -89,6 +89,7 @@ public class NewListingPage extends AbstractComponent {
 
 	// ------------------ Actions -----------------------------------------------
 	public void launchNewTransaction() {		
+		waitForElementToBeClickable(newTransButt);
 		newTransButt.click();
 	}
 
@@ -135,12 +136,12 @@ public class NewListingPage extends AbstractComponent {
 
 		Thread.sleep(1000);
 		
-		Set <String> windows = ldriver.getWindowHandles();
+		/*Set <String> windows = ldriver.getWindowHandles();
 		for (String handle: windows)
 		{
 			System.out.println("Windows : " + handle);
 			
-		}
+		}*/
 				
 		String pagetitle = ldriver.getTitle();
 		System.out.println("Current Page: " + pagetitle);
@@ -170,7 +171,7 @@ public class NewListingPage extends AbstractComponent {
 			Thread.sleep(500); 
 
 			//Submit
-			//submit.click();	
+			submit.click();	
 		}
 		else
 			System.out.println("CAR validation is failed...");
