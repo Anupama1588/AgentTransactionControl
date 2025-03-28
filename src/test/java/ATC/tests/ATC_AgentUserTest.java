@@ -21,6 +21,7 @@ public class ATC_AgentUserTest extends BaseTest{
 		//--------------------- Page Navigation verification after logged-in ---------------------------------------
 		
 		lPage.loginToApplication("bosco_agent@yopmail.com","Test@123");
+	
 		String expUrl="https://qa-atc.procasaonboard.com/transaction-overview";
 		String result=lPage.getLoginVerification();	
 		

@@ -10,7 +10,8 @@ import ATC.pageObjects.TransactionDetailsPage;
 
 public class NewListingTest extends BaseTest{
 
-	NewListingPage newTransPage;
+	NewListingPage newLstPage;
+	TransactionDetailsPage tranDtlPage;
 	
 	
 	@Test
@@ -19,46 +20,50 @@ public class NewListingTest extends BaseTest{
 
 		//--------------------- Page Navigation verification after logged-in ---------------------------------------
 
-		lPage.loginToApplication("bosco_agent@yopmail.com","Test@123");
+		//lPage.loginToApplication("bosco_agent@yopmail.com","Test@123");
+		lPage.loginToApplication("eddy_agent@yopmail.com","Sanupama@15");
+		
+		Thread.sleep(500);
+		
 		String expUrl="https://qa-atc.procasaonboard.com/transaction-overview";
 		String result=lPage.getLoginVerification();	
 
 		if(result.equalsIgnoreCase(expUrl))
 			System.out.println("User successfully logged in");	
 
-		//Thread.sleep(1000);
+		Thread.sleep(1000);
 	}
 
 	@Test(dependsOnMethods={"agent_login"})
 	public void newListingTransaction() throws InterruptedException
 	{
 		//-------------------------- Add New Transaction------------------------------------------------------------
-		newTransPage=new NewListingPage(driver);
+		newLstPage=new NewListingPage(driver);
 
-		newTransPage.launchNewTransaction();
-		newTransPage.selectNewListingTransaction();
+		newLstPage.launchNewTransaction();
+		newLstPage.selectNewListingTransaction();
 
-		String propertyLocation="Heritage, CA, USA";
+		String propertyLocation="Redlands CA, USA";
 		String propertyType = "Residential 5+";
 		String clientType="Non-Entity Individual";
 
-		newTransPage.addNewListingTransaction(propertyLocation, propertyType, clientType);
+		newLstPage.addNewListingTransaction(propertyLocation, propertyType, clientType);
 
-		//send email to seller
-		TransactionDetailsPage tranDtlPage=new TransactionDetailsPage(driver);
+	/*	//send email to seller
+		tranDtlPage=new TransactionDetailsPage(driver);
 		String ccUserEmailID="sanupama@valueaddsofttech.com";
-		//tranDtlPage.sendEmailToSeller(ccUserEmailID);
-	}
-
-	@Test
-	public void verifyAddedNewListingTransaction() {
-
-		//newTransPage=new NewListingPage(driver); 
-		String transOverviewUrl=newTransPage.getPageAfterTransactionCreation();
-		System.out.println(transOverviewUrl);
+		tranDtlPage.sendEmailToSeller(ccUserEmailID);*/
 	}
 
 	/*@Test
+	public void verifyAddedNewListingTransaction() {
+
+		newLstPage=new NewListingPage(driver); 
+		String transOverviewUrl=newLstPage.getPageAfterTransactionCreation();
+		System.out.println(transOverviewUrl);
+	}
+
+	@Test
 	public void invitationEmailToSeller() throws InterruptedException {
 		TransactionDetailsPage tranDtlPage=new TransactionDetailsPage(driver);
 

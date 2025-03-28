@@ -1,5 +1,7 @@
 package ATC.pageObjects;
 
+import java.util.List;
+
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -25,29 +27,20 @@ public class TDS_FormPage extends AbstractComponent{
 	}
 
 	//---------------- Page Factory---------------------------
-	@FindBy(xpath="(//button[text()=' Get Started '])[3]") 
+	@FindBy(xpath="(//button[text()=' Get Started '])[4]") 
 	WebElement getStartedLatest;		
 
-	@FindBy(xpath="(//span[text()=' Start Here '])[1]")
-	WebElement spqStart;
-
-	@FindBy(xpath="(//*[@class='cursor-pointer'])[2]")
-	WebElement spqCursor;
+	@FindBy(xpath="(//*[@class='cursor-pointer'])[1]")
+	WebElement tdsCursor;
 
 	@FindBy(xpath="//button[text()=' Back ']")
 	WebElement transBackButt;
-
-	@FindBy(xpath="//div/h2[text()='1 . disclosure Limitation: ']")
-	WebElement termsCondPage;
-
-	@FindBy(xpath="//span[@class='font-inter text-xl font-light leading-7 text-left text-black']")
-	WebElement startPkgText;
 
 	@FindBy(xpath="//input[@name=\"propertyType\"and @value=\"No\"]")
 	WebElement propTypeNo;		
 
 	@FindBy(xpath="//button[text()=\" Let’s Get Started! \"]")
-	WebElement getStartedSPQ;		
+	WebElement getStartedTDS;		
 
 	@FindBy(id="limitationAccepted")
 	WebElement termCondChkBx;
@@ -58,14 +51,8 @@ public class TDS_FormPage extends AbstractComponent{
 	@FindBy(xpath="//button[@title='Sub-Sections']")
 	WebElement subSecButt;
 
-	@FindBy(xpath="//span[@class='truncate'and text()='5.Documents']")
-	WebElement fifthSec;
-
-	@FindBy(xpath="//span[@class='truncate'and text()='18. OTHER']")
-	WebElement eighteenSec;
-
-	@FindBy(xpath="//span[@class='truncate'and text()='1-4']")
-	WebElement termCondSec;
+	@FindBy(xpath="//button[contains(@class,\"text-[#0000FE] bg-[#F0F0FF]\")]")
+	WebElement currentSec;
 
 	@FindBy(xpath="//button[text()=' Back ']")
 	WebElement backButt;		
@@ -75,22 +62,50 @@ public class TDS_FormPage extends AbstractComponent{
 
 	@FindBy(xpath="//input[@value='No']")
 	WebElement radioButtNO;
-	
+
 	@FindBy(xpath="//input[@value='Yes']")
 	WebElement radioButtYes;
 
 	@FindBy(xpath="//textarea[@placeholder='Enter Explanation*']")
 	WebElement explanationText;
-	
-	@FindBy(xpath="//input[@type='checkbox'and @name='19B']")
-	WebElement lastQue;
+
+	@FindBy(xpath="//input[@type='checkbox'and @value='I-1']")
+	WebElement FstQue;
+
+	@FindBy(xpath="//input[@name='I_text']")
+	WebElement FstQueExpl;
+
+	//Section 2 web elements
+	@FindBy(xpath="//input[@name=\"PropertyItemsChecklist\" and contains(@value,\"2\")]")
+	WebElement propItem1;
+
+	@FindBy(xpath="//input[@name=\"PropertyItemsChecklist\" and contains(@value,\"47\")]")
+	WebElement propItem2;
+
+	@FindBy(xpath="//input[@name='age_text']")
+	WebElement ageText;
+
+	@FindBy(xpath="(//input[@value='No'])[2]")
+	WebElement buttNO;
+
+	//Section 3 web elements
+	@FindBy(xpath="//input[@name='B1_Yes']")
+	List<WebElement> defectItemLst;
+
+	@FindBy(id="undefined__describe")
+	WebElement descrbe;
+
+	@FindBy(id="undefined__explanation")
+	WebElement explanation;
+
+
 
 	@FindBy(xpath="//button[text()=' Done ']")
 	WebElement doneButt;
-	
+
 	@FindBy(xpath="//form[@method='dialog']/h3[text()='Review Form']")
 	WebElement confirmDlg;
-	
+
 	@FindBy(xpath="//form[@method='dialog']/button[text()=' Yes ']")
 	WebElement confirmYesButt;
 
@@ -104,43 +119,121 @@ public class TDS_FormPage extends AbstractComponent{
 		Thread.sleep(500); 
 		getStartedLatest.click();
 
-		System.out.println(startPkgText.getText());
-
-		// SPQ Form terms and condition
+		// TDS Form terms and condition
 		waitForWebElementToAppear(transBackButt);
 
-		//SPQ number of unit selection
-		//spqStart.click();
-		spqCursor.click();
+		//TDS number of unit selection
+
+		tdsCursor.click();
 		propTypeNo.click();
 
 
-		waitForElementToBeClickable(getStartedSPQ);
-		getStartedSPQ.click();
+		waitForElementToBeClickable(getStartedTDS);
+		getStartedTDS.click();
 
-		subSecButt.click();
-		termCondSec.click();
+		// Get the current section where the user is landed
+		String currentSectionName=currentSec.getText().toString();
+		System.out.println(currentSectionName);
+		System.out.println("---------------------");
 
-		js.executeScript("arguments[0].scrollIntoView(true);", termCondChkBx);
+		//Terms and Conditions
+		if(currentSectionName.equalsIgnoreCase("PROPERTY INFORMATION")) {
+			if ( !termCondChkBx.isSelected() )
+				termCondChkBx.click();
 
-		if ( !termCondChkBx.isSelected() )
-			termCondChkBx.click();
+			waitForElementToBeClickable(contiNueButt);
+			contiNueButt.click();
+			sec1_answerTDS();
+		}
+		else if(currentSectionName.equalsIgnoreCase("I. COORDINATION WITH OTHER DIS...")) {
+			sec1_answerTDS();
+		}
+		else if(currentSectionName.equalsIgnoreCase("II. A SELLER’S INFORMATION")) {
+			sec2A_answerTDS();
+		}
+		else if(currentSectionName.equalsIgnoreCase("II. B DEFECTS/MALFUNCTIONS")) {
+			sec2B_answerTDS();
+		}
+		else if(currentSectionName.equalsIgnoreCase("II. C PROPERTY ISSUES")) {
+			sec2C_answerTDS();
+		}
+		else
+			reviewTDS();
+	}
 
-		waitForElementToBeClickable(contiNueButt);
-		contiNueButt.click();
+	public void sec1_answerTDS() {
+
+		waitForWebElementToAppear(saveNextButt);		
+
+		if ( !FstQue.isSelected() ) {
+			FstQue.click();
+
+			waitForWebElementToAppear(FstQueExpl);		
+			FstQueExpl.sendKeys("--------- Dummey text----------");			 
+		}		 
+		saveNextButt.click();
+		sec2A_answerTDS();		
+	}
+
+
+	public void sec2A_answerTDS() {
+
+		waitForWebElementToAppear(saveNextButt);
+
+		radioButtYes.click();
+		propItem1.click();
+
+		js.executeScript("arguments[0].scrollIntoView(true);", propItem2);
+		propItem2.click();
+
+		js.executeScript("arguments[0].scrollIntoView(true);", ageText);
+		ageText.sendKeys(" Property Age: 10 Years Old ");
+		buttNO.click();
+
+		saveNextButt.click();
+
+		sec2B_answerTDS();
+	}
+
+	public void sec2B_answerTDS() {
+
+
+		waitForWebElementToAppear(saveNextButt);
+
+		js.executeScript("arguments[0].scrollIntoView(true);", radioButtYes);
+		radioButtYes.click();
+
+		for(int i=0; i<defectItemLst.size(); i++) {
+			int number=(i%3);
+			if(number == 0){
+
+				@SuppressWarnings("deprecation")
+				String itemNAme=defectItemLst.get(i).getAttribute("value").toString();
+				System.out.println(itemNAme);
+
+				defectItemLst.get(i).click();
+			}
+		}
+		
+		js.executeScript("arguments[0].scrollIntoView(true);", descrbe);		
+		descrbe.sendKeys("Defect: there are cracks in ceilings");
+		
+		explanation.sendKeys(" Explanation: Dummy text");
+
+		js.executeScript("arguments[0].scrollIntoView(true);", descrbe);
+		saveNextButt.click();
+
+		sec2C_answerTDS();
 
 	}
 
-	@SuppressWarnings("deprecation")
-	public void setAnswerTDS() throws InterruptedException {
 
+	public void sec2C_answerTDS() {
+
+		int i=0;	
 		String questionNo = " ";
-		Thread.sleep(500);
 
-		//js.executeScript("arguments[0].scrollIntoView(true);", eighteenSec);
-		//eighteenSec.click();
-
-		for(int i=1; i<=100; i++) {
+		for(i=1; i<=30; i++) {
 
 			try {
 				waitForWebElementToAppear(saveNextButt);					
@@ -148,17 +241,14 @@ public class TDS_FormPage extends AbstractComponent{
 
 					waitForElementToBeClickable(radioButtNO);
 
-					questionNo= radioButtNO.getAttribute("name").toString();
-					System.out.println("iteration : "+ i);
-					System.out.println("Question " + questionNo + " attempted");
-
 					Thread.sleep(1000);
+					int number=(i%5);
 
 					// Select option 'Yes'
-					if((i/10) == 0)
+					if(number == 0)
 					{
 						radioButtYes.click();
-						
+
 						waitForWebElementToAppear(explanationText);
 						explanationText.sendKeys("DUMMY TEXT .........");
 					}
@@ -167,40 +257,45 @@ public class TDS_FormPage extends AbstractComponent{
 						radioButtNO.click();	
 					}
 
-					saveNextButt.click();	
-
-					if(questionNo.equalsIgnoreCase("19B"))
+					questionNo= radioButtNO.getAttribute("name").toString();
+					System.out.println("iteration : "+ i);  
+					System.out.println("Question " + questionNo + " attempted");
+	
+					
+					if(questionNo.equalsIgnoreCase("C16"))
 					{
 
-						lastQue.click();
 						saveNextButt.click();							
 
 						System.out.println("Congratulations!!!, you have completed TDS seller form");
+						System.out.println("-----------------------------------------------------");
 						break;
-					}
-				
+					}			
+					
+					saveNextButt.click();
+					
 				}									
 
 			}catch (Exception e) {
 
 				e.printStackTrace();
 			}						
-		}		
-		
-		// Reviewed and marked as done
-		reviewTDS();		
-		
+		}	
+
+		reviewTDS();
+
 	}
 
+
 	public void reviewTDS() {
-		
+
 		js.executeScript("arguments[0].scrollIntoView(true);", doneButt);
-		
+
 		doneButt.click();
-		
+
 		waitForWebElementToAppear(confirmDlg);
 		confirmYesButt.click();	
-		
+
 	}
 
 }
